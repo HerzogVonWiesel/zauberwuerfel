@@ -1,4 +1,5 @@
 import random
+import copy
 
 class RubiksCube:
     def __init__(self):
@@ -11,6 +12,7 @@ class RubiksCube:
             'L': [['O']*3 for _ in range(3)],  # Left face (orange)
             'R': [['R']*3 for _ in range(3)],  # Right face (red)
         }
+        self.initial_state = copy.deepcopy(self.faces)
 
     def get_state(self):
         return self.faces
@@ -122,6 +124,11 @@ class RubiksCube:
             move = move.strip('`')
             getattr(self, f'move_{move}')(counterclockwise)
 
+    def reset(self):
+        """ Reset the cube to the initial state """
+        self.faces = copy.deepcopy(self.initial_state)
+        return self.faces
+
     def shuffle(self, moves=20):
         """ Shuffle the cube by performing random moves. Save moves """
         move_list = []
@@ -167,13 +174,13 @@ class RubiksCube:
 
 
 # Example usage
-cube = RubiksCube()
-moves = cube.shuffle(10)
-print("\n")
-print(*moves, sep=', ')
-print("\n")
-cube.pretty_print()
-moves = cube.reverse_moves(moves)
-cube.do_moves(moves)
-print("\n")
-cube.pretty_print()
+# cube = RubiksCube()
+# moves = cube.shuffle(10)
+# print("\n")
+# print(*moves, sep=', ')
+# print("\n")
+# cube.pretty_print()
+# moves = cube.reverse_moves(moves)
+# cube.do_moves(moves)
+# print("\n")
+# cube.pretty_print()
