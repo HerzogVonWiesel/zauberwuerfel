@@ -9,11 +9,11 @@ class DQNAgent:
         self.state_size = state_size  # Rubik's Cube state representation (54 values)
         self.action_size = action_size  # 12 possible actions (6 rotations clockwise/counterclockwise)
         self.memory = deque(maxlen=2000)  # Replay memory
-        self.gamma = 0.95  # Discount factor
+        self.gamma = 0.99  # Discount factor
         self.epsilon = 1.0  # Exploration rate (starts high for exploration)
         self.epsilon_min = 0.01  # Minimum exploration rate
         self.epsilon_decay = 0.995  # Decay rate for epsilon
-        self.learning_rate = 0.01
+        self.learning_rate = 0.001
         self.batch_size = 16
         self.model = self._build_model()  # Neural network to predict Q-values
 
