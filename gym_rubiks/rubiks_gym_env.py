@@ -32,6 +32,8 @@ class RubiksEnv(gym.Env):
             for row in self.cube.faces[face]:
                 for sticker in row:
                     state.append(self.color_map[sticker])
+        # make sure its int8
+        return np.array(state, dtype=np.int8).flatten()
         return np.array(state).flatten() #reshape(1, -1)  # Return as a 1D array wrapped in 2D shape (1, 54)
 
     def reset(self, seed=0, options=None):
@@ -48,3 +50,18 @@ class RubiksEnv(gym.Env):
         done = reward == 100
         truncated = False
         return new_state, reward, done, truncated, {}
+    
+    def print_step(self, mode="human"):
+        self.cube.pretty_print()
+
+    def print_solved(self, mode="human"):
+        print(self.solved_state)
+
+    def print_state(self, mode="human"):
+        print(self._get_state())
+
+    def get_solved_state(self):
+        return self.solved_state
+
+    def get_state(self):
+        return self._get_state()
