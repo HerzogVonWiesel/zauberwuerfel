@@ -36,7 +36,7 @@ class RubiksEnv(gym.Env):
         return np.array(state, dtype=np.int8).flatten()
         return np.array(state).flatten() #reshape(1, -1)  # Return as a 1D array wrapped in 2D shape (1, 54)
 
-    def reset(self, seed=0, options=None):
+    def reset(self, seed=None, options=None):
         super().reset(seed=seed)
         self.cube.reset()
         self.cube.shuffle(self.n_shuffle)
@@ -51,7 +51,7 @@ class RubiksEnv(gym.Env):
         truncated = False
         return new_state, reward, done, truncated, {}
     
-    def print_step(self, mode="human"):
+    def pprint_state(self, mode="human"):
         self.cube.pretty_print()
 
     def print_solved(self, mode="human"):
